@@ -136,4 +136,86 @@ Angular 15
 
             }
 
-    
+    Angular Directives And Components
+
+        Angular application feature html extendability.
+
+        We can create custome html elements and attributes. That is what is called a Directive.
+
+        Directives
+            Attribute Directive
+                is a custom attribute
+
+            Structural Directive
+                is an attribute directive that can control the rendering of an element.
+                *ngIf
+                *ngFor
+                ngSwitch - *ngSwitchCase 
+
+            Component Directive (Components)    
+                is a custom html element
+
+        Angular Components
+
+            Component is the atomic unit of a UI/UX application.
+
+            Component   =   STYLE                           STATE & BEHAVIOUR           PRESENTATION
+                            dashboard.component.css     dashboard.component.ts      dashboard.component.html
+
+            @Component({
+                selector:'app-header',
+                templateUrl:'dashboard.component.html',
+                styleUrls:['dashboard.component.css']
+            })
+            class DashboardComponent {
+                //list of all fields to maintain the state of the component
+
+                //methods to operate on the state or to handle the events.
+            }
+
+            <app-header></app-header>
+        
+        Angular Data Binding
+
+            Data Binding is all about using the fields and method of the component class inside
+            the component template. Everytiem the field gets modified, its reflection on the screen
+            are reevalauted autoamtically.
+
+            Interpolation
+                Binding a field or an angualr expression with the contnet of an element.
+
+                <tagName> {{angular-expression}} </tagName>
+
+            Two-Way Data Binding
+                Bind a field with a form input element.
+                'ngModel' is a attribute directive from 'FormsModule' from '@angular/forms', is used for two-way data binding.
+
+                <input name="tb1" [(ngModel)]="field" />
+
+            One-Way Data Binding
+                Attribute Binding
+                    Binding a field or an expression with a attribute of an element.
+
+                    <tagName attribute="value"></tagName>
+                    <tagName [attribute]="field"></tagName>
+                    
+                Event Binding
+                    Invoke a method to handle event when an event occurs.
+
+                    <tagName (eventAttributeDirective)="method()" ></tagName>
+
+                    html-event-attribute        eventAttributeDirective
+                    ----------------------------------------------------
+                        onclick                     click
+                        onDblClick                  dblClick
+                        onBlur                      blur
+                        onfocus                     focus
+                        onChange                    change
+                        onSubmit                    submit, ngSubmit
+                        onmouseover                 mouseover
+                        ...etc.,
+                        
+                Style Binding
+                Css Class Binding
+
+        
