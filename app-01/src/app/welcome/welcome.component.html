@@ -1,7 +1,12 @@
 <section class="welcome">
 
     <div>
-        <img [src]="banners[bannerIndex]" (click)="toggleBanner()" />
+        <img 
+            [src]="banners[bannerIndex]" 
+            (click)="toggleBanner()"
+            [style.width.px]="bannerWidth"
+            [class.centered]="cFlag"
+            [class.bordered]="bFlag" />
     </div>
 
     <p>Hai <strong>{{userName}}</strong>! We are happy to have you here!</p>
@@ -10,6 +15,20 @@
         <div>
             <label>User Name: </label>
             <input type="text" name="tb1" [(ngModel)]="userName" />
+        </div>
+        <div>
+            <label>Banner Width: {{bannerWidth}} px </label>
+            <input type="range" name="rg1" [(ngModel)]="bannerWidth" min="50" max="500" />
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="c1" [(ngModel)]="cFlag" /> Apply Centered Class
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="c2" [(ngModel)]="bFlag" /> Apply Bordered Class
+            </label>
         </div>
     </form>
 </section>

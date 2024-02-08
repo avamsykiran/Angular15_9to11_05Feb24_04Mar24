@@ -216,6 +216,82 @@ Angular 15
                         ...etc.,
                         
                 Style Binding
+                    Bind a field or an expression on to the css-property of an element.
+
+                    <tagName [style.css.property]="field" ></tagName>
+                    <div [style.backgroundColor]="myBgColor" ></div>
+
                 Css Class Binding
 
-        
+                    Bind a field to switch on or off a css-class
+
+                    <tagName class="c1 c2 c3"></tagName>
+
+                    <tagName [class.c1]="booleanField1" [class.c2]="booleanField2" ></tagName>
+                    
+                    this.cssClassesList = "c1 c2 c3";
+                    <tagName [ngClass]="cssClassesList" ></tagName>
+                    
+                    this.cssClassesArray = ["c1","c2","c3"];
+                    <tagName [ngClass]="cssClassesArray" ></tagName>
+                    
+                    this.cssClassesObj = {c1:true,c2:false,c3:true};
+                    <tagName [ngClass]="cssClassesObj" ></tagName>
+
+        Structural Directives
+
+            ngIf
+                <ng-template [ngIf]="userName!==null">
+                    <div>
+                        Hello {{userName}}!
+                    </div>
+                </ng-template>
+
+                <div *ngIf="userName!==null">
+                 Hello {{userName}}!
+                </div>
+
+            ngFor
+                this.skills = ["ui","rest-api","java","javascript"];
+
+                <ol>
+                    <li *ngFor="let s of skills"> {{s}} </li>
+                </ol>
+
+            ngSwitch
+
+                <div [ngSwitch]="emp.designation">
+                    <img [src]="managerIcon" *ngSwitchCase="'mgr'"/>
+                    <img [src]="directorIcon" *ngSwitchCase="'dir'"/>
+                    <img [src]="srAssociateIcon" *ngSwitchCase="'sassc'"/>
+                    <img [src]="associateIcon" *ngSwitchCase="'assc'"/>
+                    <img [src]="defaultIcon" *ngSwitchDefault/>
+                </div>
+    
+    Angular Pipes
+
+        is used to tranform a value just before it renders.
+
+        buitl-in pipes
+            lowercase
+            uppercase
+            titlecase
+            number
+            currency
+            date
+            ....etc.,
+
+        custom pipes
+            @Pipe({
+                name:'',
+                providers:[]
+            })
+            class AmountInWordsPipe implements PipeTranform {
+                transform(value,...paramsList) : string {
+                    //trnasform the incoming value into something else.
+                }
+            }
+
+        usage
+
+            {{value|pipeName:param1:param2}}

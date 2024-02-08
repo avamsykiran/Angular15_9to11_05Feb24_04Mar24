@@ -1,0 +1,23 @@
+<section class="friends">
+    <h4>My Friends</h4>
+    <ol *ngIf="friends.length>0; else defaultMsg">
+        <li *ngFor="let friend of friends"> 
+            {{friend}} 
+            <button type="button" (click)="removeFriend(friend)">remove</button>
+        </li>
+    </ol>
+
+    <ng-template #defaultMsg>
+        <p>
+            <strong>No Friends Added Yet!</strong>
+        </p>
+    </ng-template>
+
+    <form (ngSubmit)="addFriend()">
+        <label>
+            Friend Name:
+            <input type="text" name="tb" [(ngModel)]="fnm" />
+        </label>
+        <button>ADD</button>
+    </form>
+</section>
