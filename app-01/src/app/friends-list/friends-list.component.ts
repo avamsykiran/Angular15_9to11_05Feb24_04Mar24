@@ -12,7 +12,7 @@ export class FriendsListComponent {
 
   constructor(){
     this.friends=[
-      "Vamsy","Sagar","Suresh","Yogi","Dileep","Girish"
+      "Vamsy","Sagar"
     ];
   }
 

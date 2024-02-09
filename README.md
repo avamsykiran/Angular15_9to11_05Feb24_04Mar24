@@ -295,3 +295,15 @@ Angular 15
         usage
 
             {{value|pipeName:param1:param2}}
+
+    Cutom Attribute Directives
+
+        @Input()        is used to receive a value from the parent component
+
+        @HostListner()  is sued to handle event on the host-element
+
+            <tagName myOwnDirective="value">
+            </tagName>
+
+            <tagName [myOwnDirective]="field">
+            </tagName>

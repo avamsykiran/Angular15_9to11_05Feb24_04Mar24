@@ -1,0 +1,51 @@
+<section class="pd">
+    <h4>String Related Pipes</h4>
+    <div class="cols">
+        <div>{{str}}</div>
+        <div>{{str|lowercase}}</div>
+        <div>{{str|uppercase}}</div>
+        <div>{{str|titlecase}}</div>
+    </div>
+
+    <h4>Number Pipes</h4>
+    <div class="cols">
+        <div>{{num}}</div>
+        <div>{{num|number:'4.0-0'}}</div>
+        <div>{{num|number:'1.2-4'}}</div>
+        <div>{{num|number:'1.2-2'}}</div>
+    </div>
+
+    <h4>Date Pipe</h4>
+    <div class="cols">
+        <div>{{today}}</div>
+        <div>{{today|date:'short'}}</div>
+        <div>{{today|date:'long'}}</div>
+        <div>{{today|date:'d-M-yy'}}</div>
+        <div>{{today|date:'dd-MM-yy'}}</div>
+        <div>{{today|date:'dd-MMM-yyyy'}}</div>
+        <div>{{today|date:'dd-MMMM-yyyy'}}</div>
+        <div>{{today|date:'dd-MMM-yy hh:mm:ss aa'}}</div>
+        <div>{{today|date:'dd-MMM-yy HH:mm:ss '}}</div>
+    </div>
+
+    <h4>Currency Pipe</h4>
+    <div class="cols">
+        <div>{{num}}</div>
+        <div>{{num|currency:'INR'}}</div>
+        <div>{{num|currency:'USD'}}</div>
+        <div>{{num|currency:'GBP'}}</div>
+        <div>{{num|currency:'JPY'}}</div>
+        <div>{{num|currency:'AUD'}}</div>
+        <div>{{num|currency:'AED'}}</div>
+        <div>{{num|currency:'ABC'}}</div>
+    </div>
+
+    <h4>Custom Pipes</h4>
+    <div class="cols">
+        <div>{{emp}}</div>
+        <div>{{emp|json}}</div>
+        <div>{{emp|empToString}}</div>
+        <div>{{num|toWords}}</div> 
+    </div>
+
+</section>
