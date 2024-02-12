@@ -1,0 +1,10 @@
+<div class="alert p-2 fw-bold" [ngClass]="type==='info'?'alert-info':'alert-danger'">
+    <div class="row">
+        <div class="col">
+            <ng-content></ng-content>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-sm btn-danger" (click)="raiseClose()">CLOSE</button>
+        </div>
+    </div>
+</div>

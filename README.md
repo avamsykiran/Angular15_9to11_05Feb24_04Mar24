@@ -307,3 +307,49 @@ Angular 15
 
             <tagName [myOwnDirective]="field">
             </tagName>
+
+    Integrate Bootstrap 
+
+        npm i bootstrap
+
+        node_modules/bootstrap/dist/css/bootstrap.min.css       to be included in styles section of angular.json
+        node_modules/bootstrap/dist/js/bootstrap.min.js         to be included in scripts section of angular.json
+    
+    Inter-Componenet Communication
+
+        @Input()        is used to create attributes to a component
+                        parent-component cna bind data to those attributes.
+
+        EventEmitter    is a class that creates a custom event for a component.
+                        'emit()' method is used to raise this event programatically.
+                        '$event' is a pre-defined varaible that carries data from
+                        child component to the parent for this event.
+
+        @Output()       will allow the parent component to bind a method to the
+                        cutom event of the child component.
+
+    Angular Services
+
+        Service is a injectable object offering bussiness logic.
+
+        Injectors   are going to create objects of the services and provide them when needed.
+
+                    Each injector create one single object of a Service and injects it everywhere in its scope
+                    when asked for.
+
+                    Module, SubModule, Component, Directive, Pipe and all other angular
+                    artifacts will have one injector each.
+
+                    The scope of an injector is all the inclusive artifacts. Module level
+                    injectors works for all the artifacts that belong to the module, a Component
+                    level injector has that component alone in its scope ..etc.,
+
+                    The 'providers:[]' section of the meta-data of each artifact will guide
+                    the list of services an injector has to manage.
+
+                    By default, all services are managed by the injector of the ROOT MODULE.
+
+        
+
+        
+

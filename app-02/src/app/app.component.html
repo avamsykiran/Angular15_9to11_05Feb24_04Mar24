@@ -1,0 +1,7 @@
+<app-header title="Budget Tracker 1.0"></app-header>
+
+<div class="container-fluid p-4">
+  <app-msg-box *ngFor="let msg of msgs;index as i" [key]="i" [type]="msg[1]" (close)="remove($event)">
+    {{msg[0]}}
+  </app-msg-box>
+</div>
