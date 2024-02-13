@@ -1,4 +1,4 @@
-<app-header title="Budget Tracker 1.0"></app-header>
+<app-header title="Budget Tracker 2.0" [links]="links"></app-header>
 
 <div class="container-fluid p-4">
   <div class="col-5 m-2 mx-auto" *ngIf="msgs && msgs.length>0">
@@ -7,5 +7,5 @@
     </app-msg-box>  
   </div>
   
-  <app-accounts-list (msg)="addMsg($event)"></app-accounts-list>
+  <router-outlet></router-outlet>
 </div>

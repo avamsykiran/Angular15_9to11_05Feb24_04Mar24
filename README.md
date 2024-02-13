@@ -349,7 +349,40 @@ Angular 15
 
                     By default, all services are managed by the injector of the ROOT MODULE.
 
-        
+    Routing In Angular
+
+        allows us to map a path each to each component, and that component is
+        rendered only when the mapped path is active.
+
+        RouterModule    from    '@angular/router'
+
+            Route       model       {
+                                        path:'path',
+                                        pathMatch:'full|startsWith',
+                                        component:ComponentName,
+                                        redirect:'anyPath',
+                                        children:[],
+                                        canActive:[],
+                                        canLoad:[]
+                                    }    
+
+            Routes      model       Route[]
+
+            router-outlet       componenet   reseves space for the output of the router.
+
+            routerLink          directive    used on 'a' tag instead of 'href' attribute.
+
+            routerLinkActive    directive    take a css-class and applies that class to
+                                             'a' element when it is active.
+
+            ActivatedRouter     service      used to extract infomartion like
+                                              current path, pathVariables ..etc.,
+                                              from the current url.
+
+            Router              service      navigateByUrl(url)
+                                             navigate(['',''])
+
+
 
         
 

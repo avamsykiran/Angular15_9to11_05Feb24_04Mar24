@@ -1,0 +1,31 @@
+<section class="col-9 p-2 border border-primary mx-auto">
+    <h4>Accounts List</h4>
+
+    <div class="bg-primary p-2 fw-bold" *ngIf="!accounts || accounts.length===0">
+        No accounts To display!
+    </div>
+
+    <table class="table table-bordered table-striped table-hover" *ngIf="accounts && accounts.length>0">
+        <thead>
+            <tr>
+                <th>Account#</th>
+                <th>Full Name</th>
+                <th>Mobile</th>
+                <th>Mail Id</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of accounts">
+                <td>{{a.id}}</td>
+                <td>{{a.fullName}}</td>
+                <td>{{a.mobileNumber}}</td>
+                <td>{{a.mailId}}</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary me-1">EDIT</button>
+                    <button type="button" class="btn btn-sm btn-danger me-1" (click)="removeAccount(a.id)">DELETE</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

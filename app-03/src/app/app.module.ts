@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { MsgBoxComponent } from './msg-box/msg-box.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { AccountFormComponent } from './account-form/account-form.component';
+import { NosuchPathComponent } from './nosuch-path/nosuch-path.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AccountFormComponent } from './account-form/account-form.component';
     HeaderComponent,
     MsgBoxComponent,
     AccountsListComponent,
-    AccountFormComponent
+    AccountFormComponent,
+    NosuchPathComponent
   ],
   imports: [
     BrowserModule,
