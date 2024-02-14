@@ -1,1 +1,39 @@
-<p>account-form works!</p>
+<section class="col-4 p-2 border border-primary mx-auto">
+    
+    <h4>{{isEditing?'Edit':'New'}} Account</h4>
+
+    <form [formGroup]="accountForm" (ngSubmit)="formSubmitted()">
+        <div>
+            <label>Account#</label>
+            <input type="number" formControlName="id" readonly class="form-control" />
+        </div>
+        <div>
+            <label>Full Name</label>
+            <input type="text" formControlName="fullName" class="form-control" />
+            <div class="alert alert-danger p-2" *ngIf="fullName.invalid && (fullName.touched || fullName.dirty)">
+                <span *ngIf="fullName.errors!['required']">Full Name is a mandatory field.</span>
+                <span *ngIf="fullName.errors!['minlength']">Full Name must be 4 letter minimum in length.</span>
+                <span *ngIf="fullName.errors!['maxlength']">Full Name must be 25 letter maximum in length.</span>
+            </div>
+        </div>
+        <div>
+            <label>Mobile Number</label>
+            <input type="text" formControlName="mobileNumber" class="form-control" />
+            <div class="alert alert-danger p-2" *ngIf="mobileNumber.invalid && (mobileNumber.touched || mobileNumber.dirty)">
+                <span *ngIf="mobileNumber.errors!['required']">Mobile Number is a mandatory field.</span>
+                <span *ngIf="mobileNumber.errors!['pattern']">Mobiel Number is expected to be a ten digit number.</span>
+            </div>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="email" formControlName="mailId" class="form-control" />
+            <div class="alert alert-danger p-2" *ngIf="mailId.invalid && (mailId.touched || mailId.dirty)">
+                <span *ngIf="mailId.errors!['required']">Mail Id is a mandatory field.</span>
+                <span *ngIf="mailId.errors!['email']">Valid mail id expected.</span>
+            </div>
+        </div>
+        <div class="d-grid mt-1">
+            <button class="btn btn-primary" [disabled]="accountForm.invalid">SAVE ACCOUNT DETAILS</button>
+        </div>
+    </form>
+</section>

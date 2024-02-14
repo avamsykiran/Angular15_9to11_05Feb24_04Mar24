@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AccountService } from '../services/account.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-form',
@@ -7,4 +10,44 @@ import { Component } from '@angular/core';
 })
 export class AccountFormComponent {
 
+  accountForm : FormGroup;
+
+  id:FormControl;
+  fullName:FormControl;
+  mailId:FormControl;
+  mobileNumber:FormControl;
+
+  isEditing!:boolean;
+
+  constructor(private as:AccountService,private router:Router,private activatedRoute:ActivatedRoute){
+
+    this.id = new FormControl(null);
+    this.fullName = new FormControl("",[Validators.required,Validators.minLength(4),Validators.maxLength(25)]);
+    this.mobileNumber = new FormControl("",[Validators.required,Validators.pattern("[1-9][0-9]{9}")]);
+    this.mailId = new FormControl("",[Validators.required,Validators.email]);
+
+    this.accountForm = new FormGroup({
+      id:this.id,
+      fullName:this.fullName,
+      mailId:this.mailId,
+      mobileNumber:this.mobileNumber
+    });
+
+    let aid = this.activatedRoute.snapshot.params["id"];
+
+    if(aid){
+      this.isEditing=true;
+      this.accountForm.reset(this.as.getById(Number(aid)));
+    }
+  }
+
+  formSubmitted(){
+    if(this.isEditing){
+      this.as.update(this.accountForm.value);
+    }else{
+      this.as.add(this.accountForm.value);
+    }
+    
+    this.router.navigateByUrl("/");
+  }
 }

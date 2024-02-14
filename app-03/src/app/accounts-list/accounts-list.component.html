@@ -22,7 +22,7 @@
                 <td>{{a.mobileNumber}}</td>
                 <td>{{a.mailId}}</td>
                 <td>
-                    <button type="button" class="btn btn-sm btn-primary me-1">EDIT</button>
+                    <a [routerLink]="['/editAccount',a.id]" class="btn btn-sm btn-primary me-1">EDIT</a>
                     <button type="button" class="btn btn-sm btn-danger me-1" (click)="removeAccount(a.id)">DELETE</button>
                 </td>
             </tr>

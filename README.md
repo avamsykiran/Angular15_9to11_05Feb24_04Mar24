@@ -382,7 +382,28 @@ Angular 15
             Router              service      navigateByUrl(url)
                                              navigate(['',''])
 
+    Angular Form
 
+        FormsModule supports Template Driven Forms
+
+            ngForm       valid, invalid
+            ngModel      valid,invalid
+                         touched,untouched
+                         dirty,prestine
+
+        ReactiveFormsModule supports Model Driven Forms
+
+            FormControl
+            formControlName
+            formGroup
+            FormGroup
+            FormBuilder
+            Validators
+
+            FormGroup       valid, invalid
+            FormControl     valid,invalid
+                            touched,untouched
+                            dirty,prestine
 
         
 
