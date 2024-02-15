@@ -405,5 +405,16 @@ Angular 15
                             touched,untouched
                             dirty,prestine
 
+        Custom Validators
+
+            is a function that accepts a ref of the AbstractControl <--- FormControl,
+            and return ValidationErrors | null
+
+            ValidationErrors is an obeject having list of errors as boolean fields
+
+            validatorFunctionName(control:AbstractControl) : ValidationErrors | null {
+                //.......
+            }
+
         
 
