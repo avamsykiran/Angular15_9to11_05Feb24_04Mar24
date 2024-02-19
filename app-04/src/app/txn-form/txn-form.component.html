@@ -13,7 +13,7 @@
         </ul>
     </div>
 </div>
-<form class="row border-bottom border-primary p-2" [formGroup]="txnForm">
+<form class="row border-bottom border-primary p-2" [formGroup]="txnForm" (ngSubmit)="formSubmitted()">
     <div class="col-2">
         <input type="date" class="form-control" formControlName="dot" />
     </div>

@@ -416,5 +416,24 @@ Angular 15
                 //.......
             }
 
+        Angular Component or Directive Life Cycle Hooks
+
+            constructor()                   gets invoked after the allocation of the object
+            ngOnChanges(SimpelChanges)      gets invoked every time when the @Input() fields change 
+            ngOnInit()                      gets invoked after the first render (only once)
+            ngDoCheck()                     is used to detect and act upon changes that angular cannot
+                                            detect on its own. incoekd after ngOnInit() for the first
+                                            time and then after ngOnChanges().
+                    ngAfterContentInit()
+                    ngAfterContentChecked()
+                    ngAfterViewInit()
+                    ngAfterViewChecked()
+            ngOnDestroy()                   gets invoekd just before the Component is unloaded.
+
+        
+
+            
+
+
         
 

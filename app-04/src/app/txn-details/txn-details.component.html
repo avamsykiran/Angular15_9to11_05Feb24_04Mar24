@@ -9,7 +9,7 @@
         {{(txn.type==="DEBIT"?txn.amount:'')|currency:"INR"}}
     </div>
     <div class="col-2 text-center">
-        <button type="button" class="btn btn-sm btn-primary me-1">EDIT</button>
-        <button type="button" class="btn btn-sm btn-danger">DELETE</button>
+        <button type="button" class="btn btn-sm btn-primary me-1" (click)="edit(txn.id)">EDIT</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="delete(txn.id)">DELETE</button>
     </div>
 </div>

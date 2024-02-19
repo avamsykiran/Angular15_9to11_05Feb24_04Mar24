@@ -26,4 +26,32 @@ export class StatementComponent {
 
   }
 
+  editTxn = (id:number):void => {
+    let index = this.txns.findIndex(t => t.id===id);
+    this.txns[index].editable=true;
+  }
+
+  cancelEditTxn = (id:number):void => {
+    let index = this.txns.findIndex(t => t.id===id);
+    this.txns[index].editable=undefined;
+  }
+
+  delTxn = (id:number):void => {
+    this.ts.deleteById(id);
+    this.txns=this.ts.getAllByAccountId(this.account!.id);
+  }
+
+  addTxn = (txn:Txn):void => {
+    txn.accountId=this.account!.id;
+    this.ts.add(txn);
+    this.txns=this.ts.getAllByAccountId(this.account!.id);
+  }
+  
+  updateTxn = (txn:Txn):void => {
+    txn.accountId=this.account!.id;
+    txn.editable=undefined;
+    this.ts.update(txn);
+    this.txns=this.ts.getAllByAccountId(this.account!.id);
+  }
+  
 }

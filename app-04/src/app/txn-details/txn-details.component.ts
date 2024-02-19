@@ -11,4 +11,10 @@ export class TxnDetailsComponent {
   @Input()
   txn!:Txn;
 
+  @Input()
+  edit!:(id:number)=>void ;
+
+  @Input()
+  delete!:(id:number)=>void ;
+
 }
