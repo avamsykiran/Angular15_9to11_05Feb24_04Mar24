@@ -55,6 +55,7 @@ Angular 15
         ng g directive DirectiveName --skip-tests
         ng g pipe PipeName --skip-tests
         ng g servive ServiceName --skip-tests ...etc
+        ng g interface InterfaceName
 
     Angular Archetecture
 
@@ -416,23 +417,85 @@ Angular 15
                 //.......
             }
 
-        Angular Component or Directive Life Cycle Hooks
+    Angular Component or Directive Life Cycle Hooks
 
-            constructor()                   gets invoked after the allocation of the object
-            ngOnChanges(SimpelChanges)      gets invoked every time when the @Input() fields change 
-            ngOnInit()                      gets invoked after the first render (only once)
-            ngDoCheck()                     is used to detect and act upon changes that angular cannot
-                                            detect on its own. incoekd after ngOnInit() for the first
-                                            time and then after ngOnChanges().
-                    ngAfterContentInit()
-                    ngAfterContentChecked()
-                    ngAfterViewInit()
-                    ngAfterViewChecked()
-            ngOnDestroy()                   gets invoekd just before the Component is unloaded.
+        constructor()                   gets invoked after the allocation of the object
+        ngOnChanges(SimpelChanges)      gets invoked every time when the @Input() fields change 
+        ngOnInit()                      gets invoked after the first render (only once)
+        ngDoCheck()                     is used to detect and act upon changes that angular cannot
+                                        detect on its own. incoekd after ngOnInit() for the first
+                                        time and then after ngOnChanges().
+                ngAfterContentInit()
+                ngAfterContentChecked()
+                ngAfterViewInit()
+                ngAfterViewChecked()
+        ngOnDestroy()                   gets invoekd just before the Component is unloaded.
 
-        
+    Handling Asynchronous Operations - (using Observables from RxJS)
 
+        Observable is a class that handles an aysnc operation and keeps
+        the main application informed of the intermidiate results / errors/ complition of
+        the async operation.
+
+        Javascript already offers a class called Promise for the same purpose.
+
+        Promise     can be subscribed only by one subcriber
+                    can emit only one result that too after the complition of the job
+                    can emit an error if the job fails
+
+        Observable  can be subscribed more than one subcriber
+                    can emit any number of results intermidiatly (while the job is still in progress)
+                    can emit the complition of the job
+                    can emit an error if the job fails
+
+        cosnt bgJob = observer => {
+            //async code goes here....
+            //observer.next(val)        is used to emit intermidate results
+            //observer.error(err)       is used to emit error
+            //observer.complete()       is used to signal completion
+        };
+
+        let ob = new Observable( bgJob );
+
+        //main application (or a component in our case)
+        ob.subscribe({
+            next: val => { /*we can receive the intermidiate results */ },
+            error: err => { /*we are supposed to handle the error */ },
+            complete: () => { /* respond to the job completion */}
+        });
             
+    Subject - (used for inter-component communication via services)
+
+        Subject is a class provided by rxjs framework that offers a pre-managed observable.
+
+        if an object of the Subject is made available to the components, a component can use
+        '.next(data)' to publish data into the subject and the subject will notify the data
+        to all other components that are subscribing to it.
+
+
+        ComponentA -----push data-----> subject ------emit data------> ComponentB
+
+    BehaviourSubject - (used for inter-component communication via services)
+
+        1. BehaviourSubject takes an initalValue unlike Subject.
+
+                let s1 = new Subject();
+                let s2 = new BehaviourSubject(0);
+
+        2. Subject emits valeus to existing subscribers only. Wheras BehaviourSubject emits inital or currentValeu
+            toe new subscribers. (however BehaviourSubject can rememebr only the last valeu emitted)
+
+            s1.subscribe( val => console.log(val)); //componentA        will receive 10
+            s1.next(10);    //componentC
+            s1.subscribe( val => console.log(val)); //componentB        will not receive 10
+
+            s2.subscribe( val => console.log(val)); //componentA        will receive 0 and 10 and 20
+            s2.next(10);    //componentC
+            s2.subscribe( val => console.log(val)); //componentB        will receive 10 and 20
+            s2.next(20);    //componentC
+            s2.subscribe( val => console.log(val)); //componentD        will receive 20
+
+
 
 
         
