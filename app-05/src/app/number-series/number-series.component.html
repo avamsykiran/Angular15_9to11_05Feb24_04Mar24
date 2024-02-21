@@ -8,6 +8,16 @@
         <input type="number" name="tb2" [(ngModel)]="ub" class="form-control" />
     </div>
     <div class="d-grid mt-1">
+        <label>
+            <input type="checkbox" name="c1" [(ngModel)]="isEven" /> Generate Evens
+        </label>
+    </div>
+    <div class="d-grid mt-1">
+        <label>
+            <input type="checkbox" name="c2" [(ngModel)]="isSquared" /> Generate Squared
+        </label>
+    </div>
+    <div class="d-grid mt-1">
         <button class="btn btn-primary" [disabled]="isJobActive">START SERIES</button>
     </div>
 </form>

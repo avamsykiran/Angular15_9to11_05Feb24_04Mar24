@@ -417,19 +417,42 @@ Angular 15
                 //.......
             }
 
+    Content vs View
+
+        All the DOM written inside the tmeplate of a component is called its view (ViewChildren or ViewChild).
+
+        Anything written inside the <tagName></tagName> of a component is called its content (ContentChildren or ContentChild) .
+
+            <app-component-a>  here goes the content </app-component-a>
+    
     Angular Component or Directive Life Cycle Hooks
 
         constructor()                   gets invoked after the allocation of the object
+
         ngOnChanges(SimpelChanges)      gets invoked every time when the @Input() fields change 
+        
         ngOnInit()                      gets invoked after the first render (only once)
+        
         ngDoCheck()                     is used to detect and act upon changes that angular cannot
                                         detect on its own. incoekd after ngOnInit() for the first
                                         time and then after ngOnChanges().
-                ngAfterContentInit()
-                ngAfterContentChecked()
-                ngAfterViewInit()
-                ngAfterViewChecked()
-        ngOnDestroy()                   gets invoekd just before the Component is unloaded.
+        
+            ngAfterContentInit()        gets invoked after the content is initialized
+        
+            ngAfterContentChecked()     gets invoked after the content is checked
+        
+            ngAfterViewInit()           gets invoked after the view is initialized
+        
+            ngAfterViewChecked()        gets invoked after the view is checked
+        
+        ngOnDestroy()                   gets invoked just before the Component is unloaded.
+
+    Content Projection
+
+        ng-content
+        ng-container
+        ng-template
+        ngTemplateOutlet
 
     Handling Asynchronous Operations - (using Observables from RxJS)
 
@@ -463,7 +486,25 @@ Angular 15
             error: err => { /*we are supposed to handle the error */ },
             complete: () => { /* respond to the job completion */}
         });
-            
+    
+    RxJS Operators
+
+        These operators are functions that can be applied on an exiting observable.
+
+        each observable has a 'pipe()' method that can channel a series of operators on an observable.
+
+            let ob2 = ob1.pipe(
+                            operator1(),
+                            operator2(),
+                            operator3()
+                        );
+
+        filter              accepts a predicate (function returning boolean) and ensures that values that satisfy the predicate
+                            only are emited .
+
+        map                 accepts a transformer and transforms every original value into a sifferent value.
+
+
     Subject - (used for inter-component communication via services)
 
         Subject is a class provided by rxjs framework that offers a pre-managed observable.
@@ -471,7 +512,6 @@ Angular 15
         if an object of the Subject is made available to the components, a component can use
         '.next(data)' to publish data into the subject and the subject will notify the data
         to all other components that are subscribing to it.
-
 
         ComponentA -----push data-----> subject ------emit data------> ComponentB
 
@@ -495,8 +535,25 @@ Angular 15
             s2.next(20);    //componentC
             s2.subscribe( val => console.log(val)); //componentD        will receive 20
 
+    Creating fake rest-api using json-server
 
+        md bt-api
+        cd bt-api
+        npm init -y
+        npm i json-server@0.17.4
 
+        create a file bt-api/data.json with some hypothetical data.
+        in package.json add a script as 'start':'json-server --port 9999 --watch ./data.json'
 
+        npm start
+        
+    Rest Api Calls using HttpClient
+
+        HttpClient is a service from '@angular/common/http'
+
+            get(apiEndPoint)   : Observable<>
+            post(apiEndPoint,reqBody)   : Observable<>
+            put(apiEndPoint,reqbody)   : Observable<>
+            delete(apiEndPoint)   : Observable<>
         
 

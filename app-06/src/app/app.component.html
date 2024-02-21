@@ -1,0 +1,11 @@
+<app-header title="Budget Tracker 2.0" [links]="links"></app-header>
+
+<div class="container-fluid p-4">
+  <div class="col-5 m-2 mx-auto" *ngIf="msgs && msgs.length>0">
+    <app-msg-box *ngFor="let msg of msgs;index as i" [key]="i" [type]="msg.type" (close)="remove($event)">
+      {{msg.msg}}
+    </app-msg-box>  
+  </div>
+  
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,29 @@
+<section class="col-9 p-2 border border-primary mx-auto">
+    <h4>Statement of {{account?.fullName}}</h4>
+
+    <app-txn-details-header></app-txn-details-header>
+    <app-txn-form [save]="addTxn"></app-txn-form>
+
+    <ng-container *ngIf="txns && txns.length>0 then txnsList;else noTxnMsg">
+    </ng-container>
+
+    <ng-template #noTxnMsg>
+        <div class="alert alert-info p-2 fw-bold">
+            <span>No txn made yet on this account</span>
+        </div>
+    </ng-template>
+
+    <ng-template #txnsList>
+        <ng-container *ngFor="let t of txns">
+            <ng-container *ngIf="t.editable then txnForm;else txnDetails">
+            </ng-container>
+            <ng-template #txnForm>
+                <app-txn-form [txn]="t" [save]="updateTxn" [cancelEdit]="cancelEditTxn"></app-txn-form>
+            </ng-template>
+            <ng-template #txnDetails>
+                <app-txn-details  [txn]="t" [edit]="editTxn" [delete]="delTxn"></app-txn-details>
+            </ng-template>
+        </ng-container>
+    </ng-template>
+    
+</section>

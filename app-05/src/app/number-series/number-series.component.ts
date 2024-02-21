@@ -8,30 +8,43 @@ import { NumberSeriesService } from '../services/number-series.service';
 })
 export class NumberSeriesComponent {
 
-  lb:number;
-  ub:number;
+  lb: number;
+  ub: number;
 
-  errMsg!:string|null;
-  results!:number[];
-  isJobActive!:boolean;
+  isEven!: boolean;
+  isSquared!: boolean;
 
-  constructor(private nss:NumberSeriesService){
-    this.lb=0;
-    this.ub=0;
+  errMsg!: string | null;
+  results!: number[];
+  isJobActive!: boolean;
+
+  constructor(private nss: NumberSeriesService) {
+    this.lb = 0;
+    this.ub = 0;
   }
 
-  formSubmitted(){
-    this.results=[];
-    this.errMsg=null;
+  formSubmitted() {
+    this.results = [];
+    this.errMsg = null;
 
-    let ob = this.nss.generateSeries(this.lb,this.ub);
+    let ob = null;
 
-    this.isJobActive=true;
-    
+    if (this.isEven && this.isSquared) {
+      ob = this.nss.generateEvenSquaredSeries(this.lb, this.ub);
+    } else if (this.isEven) {
+      ob = this.nss.generateEvenSeries(this.lb, this.ub);
+    } else if (this.isSquared) {
+      ob = this.nss.generateSquaredSeries(this.lb, this.ub);
+    } else {
+      ob = this.nss.generateSeries(this.lb, this.ub);
+    }
+
+    this.isJobActive = true;
+
     ob.subscribe({
       next: val => this.results.push(val),
-      error: err => { this.errMsg=err; this.isJobActive=false; },
-      complete: () => this.isJobActive=false
+      error: err => { this.errMsg = err; this.isJobActive = false; },
+      complete: () => this.isJobActive = false
     })
   }
 }

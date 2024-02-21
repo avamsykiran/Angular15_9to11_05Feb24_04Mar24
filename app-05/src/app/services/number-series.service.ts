@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
+import { filter,map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -31,28 +32,15 @@ export class NumberSeriesService {
     return new Observable<number>( bgJob );
   }
 
-  generateStringValues() : Observable<string> {
+  generateEvenSeries(lb:number,ub:number) : Observable<number> {
+    return this.generateSeries(lb,ub).pipe( filter( x => x%2===0 ) );
+  }
 
-    const strings:string[] = ["a","b",'c',"d","e"];
+  generateSquaredSeries(lb:number,ub:number) : Observable<number> {
+    return this.generateSeries(lb,ub).pipe( map( x => x*x ) );
+  }
 
-    const bgJob = (observer:Observer<string>) => {
-      if(strings.length===0){
-        observer.error("No data to generate from");
-        return;
-      }
-
-      let i = 0;
-
-      let handle = setInterval( () => {
-        observer.next(strings[i]);
-        i++;
-        if(i===strings.length){
-          clearInterval(handle);
-          observer.complete();
-        }
-      } , 500);
-    };
-
-    return new Observable<string>( bgJob );
+  generateEvenSquaredSeries(lb:number,ub:number) : Observable<number> {
+    return this.generateSeries(lb,ub).pipe( filter( x => x%2===0 ) , map( x => x*x ) );
   }
 }

@@ -1,0 +1,36 @@
+<div class="row p-2" *ngIf="txnForm.invalid && (txnForm.dirty || txnForm.touched)">
+    <div class="col alert alert-danger">
+        <ul *ngIf="dot.invalid && (dot.touched || dot.dirty)">
+            <li *ngIf="dot.errors!['required']"> Date Of Transaction is a mandate field </li>
+            <li *ngIf="dot.errors!['noFutureDate']"> Date Of Transaction can not be a future date </li>
+        </ul>
+        <ul *ngIf="desp.invalid && (desp.touched || desp.dirty)">
+            <li *ngIf="desp.errors!['required']"> Discription is a mandate field </li>
+        </ul>
+        <ul *ngIf="amount.invalid && (amount.touched || amount.dirty)">
+            <li *ngIf="amount.errors!['required']"> Amount is a mandate field </li>
+            <li *ngIf="amount.errors!['min']"> Amount can not be negative </li>
+        </ul>
+    </div>
+</div>
+<form class="row border-bottom border-primary p-2" [formGroup]="txnForm" (ngSubmit)="formSubmitted()">
+    <div class="col-2">
+        <input type="date" class="form-control" formControlName="dot" />
+    </div>
+    <div class="col-1">
+        <input class="form-control" formControlName="id" readonly />
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" formControlName="desp" />
+    </div>
+    <div class="col-2" (click)="changeType('CREDIT')">
+        <input type="number" class="form-control" formControlName="amount" *ngIf="txnType==='CREDIT'" />
+    </div>
+    <div class="col-2" (click)="changeType('DEBIT')">
+        <input type="number" class="form-control" formControlName="amount" *ngIf="txnType==='DEBIT'" />
+    </div>
+    <div class="col-2 text-center">
+        <button type="submit" class="btn btn-sm btn-primary me-1" [disabled]="txnForm.invalid">SAVE</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">CANCEL</button>
+    </div>
+</form>
