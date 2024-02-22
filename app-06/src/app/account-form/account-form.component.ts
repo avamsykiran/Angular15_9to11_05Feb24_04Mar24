@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessagingService } from '../services/messaging.service';
+import { Observable } from 'rxjs';
+import { Account } from '../models/account';
 
 @Component({
   selector: 'app-account-form',
@@ -33,24 +35,32 @@ export class AccountFormComponent {
       mailId:this.mailId,
       mobileNumber:this.mobileNumber
     });
+  }
 
+  ngOnInit(){
     let aid = this.activatedRoute.snapshot.params["id"];
 
     if(aid){
       this.isEditing=true;
-      this.accountForm.reset(this.as.getById(Number(aid)));
+      this.as.getById(Number(aid)).subscribe({
+        next: data => this.accountForm.reset(data),
+        error: err => { console.log(err); this.msgService.sendMsg({ type: "error", msg: "Unable to fetech data! Please try later!" }) }
+      });
     }
   }
 
   formSubmitted(){
-    if(this.isEditing){
-      this.as.update(this.accountForm.value);
-      this.msgService.sendMsg({type:"info",msg:`An Account is updated!`});
-    }else{
-      this.as.add(this.accountForm.value);
-      this.msgService.sendMsg({type:"info",msg:`An Account is added!`});
-    }
+    let ob:Observable<Account> = this.isEditing ? this.as.update(this.accountForm.value) : this.as.add(this.accountForm.value);
         
-    this.router.navigateByUrl("/");
+    ob.subscribe({
+      next: acc => {
+        this.msgService.sendMsg({type:"info",msg:`Account#${acc.id} is ${this.isEditing?"updated":"added"}!`});
+        this.router.navigateByUrl("/");  
+      },
+      error: err => { 
+        console.log(err); 
+        this.msgService.sendMsg({ type: "error", msg: "Unable to save data! Please try later!" }) 
+      }
+    })
   }
 }

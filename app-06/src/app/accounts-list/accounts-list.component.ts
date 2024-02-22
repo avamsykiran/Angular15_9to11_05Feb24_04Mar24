@@ -10,16 +10,30 @@ import { MessagingService } from '../services/messaging.service';
 })
 export class AccountsListComponent {
 
-  accounts:Account[];
+  accounts!: Account[]|null;
+  pleaseWait:string;
 
-  constructor(private acs:AccountService,private msgService:MessagingService){
-    this.accounts=acs.getAll();
+  constructor(private acs: AccountService, private msgService: MessagingService) {
+    this.pleaseWait="assets/imgs/please-wait.gif";
   }
 
-  removeAccount(id:number){
-    this.acs.deleteById(id);
-    this.accounts=this.acs.getAll();
-    this.msgService.sendMsg({type:"info",msg:`Account#${id} is deleted!`});
+  ngOnInit(){
+    this.loadData();
+  }
+
+  loadData() {
+    this.accounts=null;
+    this.acs.getAll().subscribe({
+      next: data => this.accounts = data,
+      error: err => { console.log(err); this.msgService.sendMsg({ type: "error", msg: "Unable to fetech data! Please try later!" }) }
+    });
+  }
+
+  removeAccount(id: number) {
+    this.acs.deleteById(id).subscribe({
+      next: () => { this.msgService.sendMsg({ type: "info", msg: `Account#${id} is deleted!` }); this.loadData(); },
+      error: err => { console.log(err); this.msgService.sendMsg({ type: "error", msg: "Unable to delete data! Please try later!" }) }
+    })
   }
 
 }

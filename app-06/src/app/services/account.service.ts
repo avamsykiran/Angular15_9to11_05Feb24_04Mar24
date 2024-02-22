@@ -1,51 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Account } from '../models/account';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  accounts:Account[];
-  nextId:number;
+  api:string;
 
-  constructor() {
-    this.accounts=[
-      {id:101,fullName:"Vamsy Kiran",mobileNumber:"9052224753",mailId:"vamsy@gmail.com"},
-      {id:102,fullName:"Sagar",mobileNumber:"9052224751",mailId:"sagar@gmail.com"},
-      {id:103,fullName:"Suresh",mobileNumber:"9052224752",mailId:"suresh@gmail.com"}
-    ];
-    this.nextId=104;
-   }
+  constructor(private httpClient:HttpClient) {
+    this.api = environment.accountsApiUrl;
+  }
 
-   getAll():Account[]{
-    return [...this.accounts];
-   }
+  getAll() : Observable<Account[]> {
+    return this.httpClient.get<Account[]>(this.api);
+  }
 
-   getById(id:number):Account|undefined{
-    return this.accounts.find(a => a.id===id);
-   }
+  getById(id: number): Observable<Account> {
+    return this.httpClient.get<Account>(`${this.api}/${id}`);
+  }
 
-   add(account:Account):Account{
-    account.id=this.nextId++;
-    this.accounts.push(account);
-    return account;
-   }
+  add(account: Account): Observable<Account> {
+    return this.httpClient.post<Account>(this.api,account);
+  }
 
-   update(account:Account):Account|undefined{
-    let index = this.accounts.findIndex(a => a.id===account.id);
-    if(index>-1){
-      this.accounts[index]=account;
-    }else{
-      return undefined;
-    }
-    return account;
-   }
+  update(account: Account): Observable<Account> {
+    return this.httpClient.put<Account>(`${this.api}/${account.id}`,account);
+  }
 
-   deleteById(id:number):void{
-    let index = this.accounts.findIndex(a => a.id===id);
-    if(index>-1){
-      this.accounts.splice(index,1);
-    }
-   }
+  deleteById(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.api}/${id}`);
+  }
 }

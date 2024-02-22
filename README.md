@@ -555,5 +555,11 @@ Angular 15
             post(apiEndPoint,reqBody)   : Observable<>
             put(apiEndPoint,reqbody)   : Observable<>
             delete(apiEndPoint)   : Observable<>
+
+    Environemnt Files
+
+        ng g environemnt
+
+        these fiel hold the externalized configuaration (profile wise)
         
 

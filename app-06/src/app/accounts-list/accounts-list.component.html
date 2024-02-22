@@ -1,7 +1,11 @@
 <section class="col-9 p-2 border border-primary mx-auto">
     <h4>Accounts List</h4>
 
-    <div class="bg-primary p-2 fw-bold" *ngIf="!accounts || accounts.length===0">
+    <div *ngIf="!accounts">
+        <img [src]="pleaseWait" />
+    </div>
+
+    <div class="bg-primary p-2 fw-bold" *ngIf="accounts && accounts.length===0">
         No accounts To display!
     </div>
 

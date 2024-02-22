@@ -1,0 +1,42 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "fullName": "Vamsy Kiran Aripaka",
+      "mailId": "vamsy@gmail.com",
+      "mobileNumber": "9052224753"
+    },
+    {
+      "fullName": "Sagar",
+      "mailId": "sagar@gmail.com",
+      "mobileNumber": "9052224111",
+      "id": 2
+    }
+  ],
+  "txns": [
+    {
+      "id": 1,
+      "descp": "Salary",
+      "amount": "900000",
+      "dot": "2024-01-01",
+      "type": "CREDIT",
+      "accountId": 1
+    },
+    {
+      "id": 2,
+      "descp": "Fuel",
+      "amount": "9000",
+      "dot": "2024-01-10",
+      "type": "DEBIT",
+      "accountId": 1
+    },
+    {
+      "id": 3,
+      "descp": "Groceries",
+      "amount": "3900",
+      "dot": "2024-01-11",
+      "type": "DEBIT",
+      "accountId": 1
+    }
+  ]
+}

@@ -1,53 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Txn } from '../models/txn';
 import { TxnType } from '../models/txn-type';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TxnService {
 
-  txns:Txn[];
-  nextId:number;
+  api!: string;
 
-  constructor() {
-    this.txns=[
-      {id:1,descp:"Salary",type:TxnType.CREDIT,amount:90000,dot:new Date("2024-01-01"),accountId:101},
-      {id:2,descp:"Fuel",type:TxnType.DEBIT,amount:9000,dot:new Date("2024-01-10"),accountId:101},
-      {id:3,descp:"Mobile Bill",type:TxnType.DEBIT,amount:900,dot:new Date("2024-01-13"),accountId:101}
-    ];
-
-    this.nextId=4;
+  constructor(private httpClient: HttpClient) {
+    this.api = environment.txnsApiUrl;
   }
 
-  getAllByAccountId(aid:number):Txn[]{
-    return this.txns.filter(t => t.accountId===aid);
+  getAllByAccountId(aid: number): Observable<Txn[]> {
+    return this.httpClient.get<Txn[]>(`${this.api}?accountId=${aid}`).pipe(
+      map((txns: Txn[]) => txns.map((t: Txn) => ({ ...t, dot: new Date(t.dot) })))
+    )
   }
 
-  getById(id:number):Txn|undefined{
-    return this.txns.find(t => t.id===id);
+  getById(id: number): Observable<Txn> {
+    return this.httpClient.get<Txn>(`${this.api}/${id}`).pipe(
+      map((t: Txn) => ({ ...t, dot: new Date(t.dot) }))
+    )
   }
 
-  add(txn:Txn):Txn{
-    txn.id=this.nextId++;
-    this.txns.push(txn);
-    return txn;
+  add(txn: Txn): Observable<Txn> {
+    return this.httpClient.post<Txn>(this.api, txn);
   }
 
-  update(txn:Txn):Txn|undefined{
-    let index = this.txns.findIndex(t => t.id===txn.id);
-    if(index>-1){
-      this.txns[index]=txn;
-    }else{
-      return undefined;
-    }
-    return txn;
+  update(txn: Txn): Observable<Txn> {
+    return this.httpClient.put<Txn>(`${this.api}/${txn.id}`, txn);
   }
 
-  deleteById(id:number):void{
-    let index = this.txns.findIndex(t => t.id===id);
-    if(index>-1){
-      this.txns.splice(index,1);
-    }
+  deleteById(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.api}/${id}`);
   }
 }
