@@ -37,6 +37,14 @@
       "dot": "2024-01-11",
       "type": "DEBIT",
       "accountId": 1
+    },
+    {
+      "id": 4,
+      "type": "CREDIT",
+      "amount": 76000,
+      "descp": "Salary",
+      "dot": "2024-02-01T00:00:00.000Z",
+      "accountId": 2
     }
   ]
 }

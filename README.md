@@ -562,4 +562,81 @@ Angular 15
 
         these fiel hold the externalized configuaration (profile wise)
         
+    Angular Modules - In Depth
+
+        Types of Modules
+            
+            Domain	Is organized around a feature, business domain, or user experience.
+            Routed	Is the top component of the NgModule. Acts as the destination of a router navigation route.
+            Routing	Provides the routing configuration for another NgModule.
+            Service	Provides utility services such as data access and messaging.
+            Widget	Makes a component, directive, or pipe available to other NgModules.
+            Shared	Makes a set of components, directives, and pipes available to other NgModules.
+
+            NGMODULE	DECLARATIONS	PROVIDERS	    EXPORTS	        IMPORTED BY
+            Domain	    Yes	            Rare	        Top component	Another domain, AppModule
+            Routed	    Yes	            Rare	        No	            None
+            Routing	    No	            Yes (Guards)	RouterModule	Another domain (for routing)
+            Service	    No	            Yes	            No	            AppModule
+            Widget	    Yes	            Rare	        Yes	            Another domain
+            Shared	    Yes	            No	            Yes	            Another domain
+
+        Lazy-loading Domain modules
+
+            ng g module NewModuleName --route pathName --module app.module
+
+    Router Guards
+
+        is a service that is invoked each time a route is evalauted.
+
+        router guard can control if that respective route can result in navigation or not.
+
+        a router guard ha to return true/false/alternateRoute.
+
+        the navigation reuslts only if true is returned 
+        if false, the navigation won't happen
+        if alterRouter is returned, the navigation happen to the returned route.
+
+        4 types of router guards
+            CanActivate
+            CanDeActivate
+            CanActivateChild
+            CanLoad 
+
+    Application Level State Management Using NgRx
+
+        ensures that the data or the sate is managed at one single location and all
+        the component are updated everytime the state is modified.
+
+        NgRx is a state-management tool designed for angular based on 'redux'.
+
+            Store           is the object that hold the entire state.
+                            typically, one application will have only one store.
+
+            Reducer         is a pure function, that accepts the oldState and an action
+                            and returns the modified state.
+
+            Action          is an object indicating an operation on the state 
+                            dispatched by the component when needed.
+
+            Selector        is an observble that emits selected data from the state
+                            to a component each tiem the data is modified.
+
+            Effect          is used to manage aync api calls
+
+            store -----→onStateChange---------↓-------------------↓
+            |                                 |selector1          | selector2
+            ↑                                 |                   |
+            |                               ComponentA          ComponentB
+            |modifiedState                    |                   |  
+            |                                 | dispatchAnAction  |
+            |                                 |                   | dispatchAnAction
+            ↑                                 ↓                   ↓  
+            reducer ←----------------------------------------------        
+            
+    Angular Material
+
+        is a set of components designed for angular based on Bootstrap.
+
+        offers theams, animations ..etc.,
 

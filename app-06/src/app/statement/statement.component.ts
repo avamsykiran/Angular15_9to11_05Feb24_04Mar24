@@ -13,49 +13,84 @@ import { MessagingService } from '../services/messaging.service';
 })
 export class StatementComponent {
 
-  txns!:Txn[];
-  account!:Account|undefined;
+  txns!: Txn[];
+  account!: Account | undefined;
 
-  constructor(private as:AccountService,private ts:TxnService,private activatedRoute:ActivatedRoute,private msgService:MessagingService){
+  constructor(private as: AccountService, private ts: TxnService,
+    private activatedRoute: ActivatedRoute, private msgService: MessagingService) {
 
+  }
+
+  ngOnInit() {
     let aid = this.activatedRoute.snapshot.params["id"];
 
-    if(aid){
-      this.account = this.as.getById(Number(aid));
-      this.txns = this.ts.getAllByAccountId(Number(aid));
+    if (aid) {
+      this.as.getById(Number(aid)).subscribe({
+        next: account => this.account = account,
+        error: err => { console.log(err); this.msgService.sendMsg({ type: "error", msg: "Unable to fetech account detals! Please try later!" }) }
+      })
+
+      this.refreshTxns(Number(aid));
     }
-
   }
 
-  editTxn = (id:number):void => {
-    let index = this.txns.findIndex(t => t.id===id);
-    this.txns[index].editable=true;
+  refreshTxns(aid: number) {
+    this.ts.getAllByAccountId(aid).subscribe({
+      next: txns => this.txns = txns,
+      error: err => { console.log(err); this.msgService.sendMsg({ type: "error", msg: "Unable to fetech transactions list! Please try later!" }) }
+    })
   }
 
-  cancelEditTxn = (id:number):void => {
-    let index = this.txns.findIndex(t => t.id===id);
-    this.txns[index].editable=undefined;
+  editTxn = (id: number): void => {
+    let index = this.txns.findIndex(t => t.id === id);
+    this.txns[index].editable = true;
   }
 
-  delTxn = (id:number):void => {
-    this.ts.deleteById(id);
-    this.txns=this.ts.getAllByAccountId(this.account!.id);
-    this.msgService.sendMsg({type:"info",msg:`Transaction${id} is deleted!`});
+  cancelEditTxn = (id: number): void => {
+    let index = this.txns.findIndex(t => t.id === id);
+    this.txns[index].editable = undefined;
   }
 
-  addTxn = (txn:Txn):void => {
-    txn.accountId=this.account!.id;
-    this.ts.add(txn);
-    this.txns=this.ts.getAllByAccountId(this.account!.id);
-    this.msgService.sendMsg({type:"info",msg:`A Transaction is added!`});
+  delTxn = (id: number): void => {
+    this.ts.deleteById(id).subscribe({
+      next: () => {
+        this.msgService.sendMsg({ type: "info", msg: `Transaction${id} is deleted!` });
+        this.refreshTxns(this.account!.id);
+      },
+      error: err => { 
+        console.log(err); 
+        this.msgService.sendMsg({ type: "error", msg: "Unable to delete transaction! Please try later!" }) 
+      }
+    });
   }
-  
-  updateTxn = (txn:Txn):void => {
-    txn.accountId=this.account!.id;
-    txn.editable=undefined;
-    this.ts.update(txn);
-    this.txns=this.ts.getAllByAccountId(this.account!.id);
-    this.msgService.sendMsg({type:"info",msg:`Transaction${txn.id} is updated!`});
+
+  addTxn = (txn: Txn): void => {
+    txn.accountId = this.account!.id;
+    this.ts.add(txn).subscribe({
+      next: txn => {
+        this.msgService.sendMsg({ type: "info", msg: `Transaction#${txn.id} is added!` });
+        this.refreshTxns(this.account!.id);
+      },
+      error: err => { 
+        console.log(err); 
+        this.msgService.sendMsg({ type: "error", msg: "Unable to save transaction! Please try later!" }) 
+      }
+    })
   }
-  
+
+  updateTxn = (txn: Txn): void => {
+    txn.accountId = this.account!.id;
+    txn.editable = undefined;
+    this.ts.update(txn).subscribe({
+      next: txn => {
+        this.msgService.sendMsg({ type: "info", msg: `Transaction#${txn.id} is updated!` });
+        this.refreshTxns(this.account!.id);
+      },
+      error: err => { 
+        console.log(err); 
+        this.msgService.sendMsg({ type: "error", msg: "Unable to save transaction! Please try later!" }) 
+      }
+    })
+  }
+
 }
