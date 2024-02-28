@@ -591,7 +591,7 @@ Angular 15
 
         router guard can control if that respective route can result in navigation or not.
 
-        a router guard ha to return true/false/alternateRoute.
+        a router guard has to return true/false/alternateRoute.
 
         the navigation reuslts only if true is returned 
         if false, the navigation won't happen
@@ -634,9 +634,67 @@ Angular 15
             ↑                                 ↓                   ↓  
             reducer ←----------------------------------------------        
             
+        Working with NgRx
+
+            1. add NgRx Schematics
+                ng add @ngrx/schematics@latest
+            
+            2. Configure the Schematics so that NgRx commands are available in Angular CLI by default.
+
+                ng config cli.defaultCollection @ngrx/schematics
+
+            3. Install ngRx libraries
+
+                npm i @ngrx/store @ngrx/effects @ngrx/entity @ngrx/store-devtools
+                
+            4. Add an NgRx Store to the App
+
+                ng g @ngrx/schematics:store StoreName --root --module app.module
+            
+            5. Create all needed models
+
+            6. Add Actions
+
+                ng g action domain-module-name/store/action/ActionName
+
+            7. Add Reducer
+
+                ng g reducer domain-module-name/store/reducer/ReducerName
+            
+            8. Add Selector
+
+                ng g selector domain-module-name/store/selector/SelectorName
+
+            9. Attach the reducer to the Store Module and import in domain-module
+
+                StoreModule.forFeature(modelFeatureKeyName, reducerName)
+            
+            Referene Article;
+                https://dzone.com/articles/angular-app-state-management-with-ngrx
+
+
+
     Angular Material
 
         is a set of components designed for angular based on Bootstrap.
 
         offers theams, animations ..etc.,
 
+        Intalling With Angular Material
+
+            ng add @angular/material
+
+            The ng add command will install Angular Material, the Component Dev Kit (CDK), Angular Animations and
+            configures teh angular material features based on the responses given to its questions. And the below
+            boiler-plate tasks are perfored.
+
+                (+) Add project dependencies to package.json
+                (+) Add the Roboto font to your index.html
+                (+) Add the Material Design icon font to your index.html
+                (+) Add a few global CSS styles to:
+                (+) Remove margins from body
+                (+) Set height: 100% on html and body
+                (+) Set Roboto as the default application font
+
+        Angular Material offers a vide range of components and to use them, we need to import
+        the respective sub-modules from '@angular/material/sub0module-name' and use te control.
