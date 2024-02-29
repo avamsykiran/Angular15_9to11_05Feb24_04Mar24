@@ -613,16 +613,56 @@ Angular 15
             Store           is the object that hold the entire state.
                             typically, one application will have only one store.
 
+                            StoreModule.forRoot({})
+                            StroeModule.forFeature({fetureKey:featureReducer})
+
             Reducer         is a pure function, that accepts the oldState and an action
                             and returns the modified state.
+
+                            'createReducer()' is sued to create a reducer. This method accepts 
+                            initialState and a list of action handler.
+
+                            const empReducer = createReducer(
+                                [],
+                                on(addEmp, (emps,{emp}) => ([...emps,emp])),
+                                on(delEmp, (emps,{id}) =>  emps.filter(e => e.id!==id) ),
+                                on(updEmp, state => { })
+                            );
 
             Action          is an object indicating an operation on the state 
                             dispatched by the component when needed.
 
+                            Each action object has a 'type' and 'payload'.
+                            type indicate 'what to do? add/delete/update/increment/decremet ...etc'
+                            payload carries the data needed for the operation.
+
+                            'createActon()' method is used to create actions.
+
+                            const addEmp = createAction('[Emps] ADD',props<{emp:Employee}>()));
+                            const delEmp = createAction('[Emps] DEL',props<{id:number}>()));
+                            const updEmp = createAction('[Emps] UPD',props<{emp:Employee,id:number}>()));
+
             Selector        is an observble that emits selected data from the state
                             to a component each tiem the data is modified.
 
-            Effect          is used to manage aync api calls
+                            class ComponentA {
+                                empsOb : Observable<Employee>;
+
+                                constructor(private store:Stroe){
+                                    empsOb = store.select( state => state.emps);
+                                }
+                            }
+
+            dispatch        is a function used by the component to dispatch an action.
+
+                            dispatch(addEmp(emp));
+
+            Effects          is used to manage aync api calls
+
+                            const loadEmps = createEffects(
+                                //dispatch a waiting action
+                                //rest-api call and dispatch either dataAction or errAction
+                            );
 
             store -----→onStateChange---------↓-------------------↓
             |                                 |selector1          | selector2
@@ -630,7 +670,7 @@ Angular 15
             |                               ComponentA          ComponentB
             |modifiedState                    |                   |  
             |                                 | dispatchAnAction  |
-            |                                 |                   | dispatchAnAction
+            |                                 |                   | dispatchAnAction  <--->  Effects <--> Service(RestApiCalls)
             ↑                                 ↓                   ↓  
             reducer ←----------------------------------------------        
             
@@ -645,7 +685,7 @@ Angular 15
 
             3. Install ngRx libraries
 
-                npm i @ngrx/store @ngrx/effects @ngrx/entity @ngrx/store-devtools
+                npm i @ngrx/store@16.0.0 @ngrx/effects@16.0.0 @ngrx/entity@16.0.0 @ngrx/store-devtools@16.0.0
                 
             4. Add an NgRx Store to the App
 
@@ -671,8 +711,6 @@ Angular 15
             
             Referene Article;
                 https://dzone.com/articles/angular-app-state-management-with-ngrx
-
-
 
     Angular Material
 

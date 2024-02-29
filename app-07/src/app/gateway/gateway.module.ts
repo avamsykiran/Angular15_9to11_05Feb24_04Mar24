@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccessDeniedComponent
   ],
   imports: [
     CommonModule
   ],
   exports:[
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccessDeniedComponent
   ]
 })
 export class GatewayModule { }
