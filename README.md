@@ -679,33 +679,29 @@ Angular 15
             1. add NgRx Schematics
                 ng add @ngrx/schematics@latest
             
-            2. Configure the Schematics so that NgRx commands are available in Angular CLI by default.
-
-                ng config cli.defaultCollection @ngrx/schematics
-
-            3. Install ngRx libraries
+            2. Install ngRx libraries
 
                 npm i @ngrx/store@16.0.0 @ngrx/effects@16.0.0 @ngrx/entity@16.0.0 @ngrx/store-devtools@16.0.0
                 
-            4. Add an NgRx Store to the App
+            3. Add an NgRx Store to the App
 
                 ng g @ngrx/schematics:store StoreName --root --module app.module
             
-            5. Create all needed models
+            4. Create all needed models
 
-            6. Add Actions
+            5. Add Actions
 
                 ng g action domain-module-name/store/action/ActionName
 
-            7. Add Reducer
+            6. Add Reducer
 
                 ng g reducer domain-module-name/store/reducer/ReducerName
             
-            8. Add Selector
+            7. Add Selector
 
                 ng g selector domain-module-name/store/selector/SelectorName
 
-            9. Attach the reducer to the Store Module and import in domain-module
+            8. Attach the reducer to the Store Module and import in domain-module
 
                 StoreModule.forFeature(modelFeatureKeyName, reducerName)
             
