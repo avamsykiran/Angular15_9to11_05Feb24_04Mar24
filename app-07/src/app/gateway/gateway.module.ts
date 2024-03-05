@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AppMatModule } from '../app-mat.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     AccessDeniedComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AppMatModule
   ],
   exports:[
     LoginComponent,

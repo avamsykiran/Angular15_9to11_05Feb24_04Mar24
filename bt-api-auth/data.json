@@ -1,5 +1,39 @@
 {
-  "users":[],
-  "accounts": [],
+  "users": [
+    {
+      "email": "admin@cts.com",
+      "password": "$2a$10$dDZg6tbo5sfWdLn0tc7A/OdHMZisGrQxrAwXRGLjkXT5kCEiC146i",
+      "role": "ADMIN",
+      "id": 1
+    },
+    {
+      "email": "vamsy@gmail.com",
+      "password": "$2a$10$gctqOdVgG19nPnsMPT2yQ.xm7di8BF.g9HWKbuf49LdsKdzyNVtJy",
+      "role": "ACCOUNT_HOLDER",
+      "id": 2
+    },
+    {
+      "email": "sagar@gmail.com",
+      "password": "$2a$10$La/KSAadW5OcLZ54kRc3zu8.L/nnlZQS..nvIS.w27jzzdUpqHXuq",
+      "role": "ACCOUNT_HOLDER",
+      "id": 3
+    }
+  ],
+  "accounts": [
+    {
+      "fullName": "Vamsy Kiran",
+      "mailId": "vamsy@gmail.com",
+      "mobileNumber": "9052224753",
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "fullName": "Sagar",
+      "mailId": "sagar@gmail.com",
+      "mobileNumber": "9052224722",
+      "userId": 3,
+      "id": 2
+    }
+  ],
   "txns": []
 }

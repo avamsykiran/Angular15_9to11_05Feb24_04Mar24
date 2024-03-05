@@ -696,7 +696,7 @@ Angular 15
             6. Add Reducer
 
                 ng g reducer domain-module-name/store/reducer/ReducerName
-            
+             
             7. Add Selector
 
                 ng g selector domain-module-name/store/selector/SelectorName

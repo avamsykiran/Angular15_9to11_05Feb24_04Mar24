@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server-auth --port 9999 --watch ./data.json"
+    "start": "json-server-auth --port 9999 --watch ./data.json -r ./routes.json"
   },
   "keywords": [],
   "author": "",

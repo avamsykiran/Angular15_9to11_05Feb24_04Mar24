@@ -1,1 +1,17 @@
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>{{title}}</span>
+        <a mat-button routerLink="/login">
+            <mat-icon>account_box</mat-icon>
+            <span>Sign In</span>
+        </a>
+        <a mat-button routerLink="/register">
+            <mat-icon>account_circle</mat-icon>
+            <span>Sign Up</span>
+        </a>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container-fluid p-4">
+    <router-outlet></router-outlet>
+</div>
