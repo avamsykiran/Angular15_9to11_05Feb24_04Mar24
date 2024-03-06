@@ -732,3 +732,20 @@ Angular 15
 
         Angular Material offers a vide range of components and to use them, we need to import
         the respective sub-modules from '@angular/material/sub0module-name' and use te control.
+
+    Angular Flex-Layout
+
+        npm i @angular/flex-layout
+
+        import 'FlexLayoutModule' from @angular/flex-layout'
+
+    Angular HttpInterceptors
+
+        An HttpInterceptor is like a channel through which all reqeusts and resposnes will
+        flow.
+                      interceptor1       interceptor2
+        httpClient ----> [ REQ ] -------> [ REQ ] ------->  restApi
+
+        ng g interceptor InterceptorName --skip-tests
+
+        and configure this in the root-module providers.

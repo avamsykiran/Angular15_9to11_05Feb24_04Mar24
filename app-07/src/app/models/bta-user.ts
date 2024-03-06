@@ -2,7 +2,7 @@ import { BtaRole } from "./bta-role";
 
 export interface BtaUser {
     id:number;
-    userName:string;
+    email:string;
     password:string;
     role:BtaRole
 }

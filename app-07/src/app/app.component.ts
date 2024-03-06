@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Budget Tracekr 2.0';
+  title = 'Budget Tracker 2.0';
 }
