@@ -2,7 +2,7 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMatModule } from './app-mat.module';
+import { TokenInterceptor } from './bta-services/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { AppMatModule } from './app-mat.module';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

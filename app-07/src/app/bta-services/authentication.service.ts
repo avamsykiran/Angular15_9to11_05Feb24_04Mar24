@@ -9,17 +9,26 @@ export class AuthenticationService {
 
   private currentUser!:BtaUser;
   private loggedIn:boolean;
+  private accessToken!:string;
 
   constructor() { 
     this.loggedIn=false;
+  }
+
+  get token(){
+    return this.accessToken;
   }
 
   get isLoggedIn():boolean{
     return this.loggedIn;
   }
 
-  get userName():string {
-    return this.currentUser?.userName;
+  get userId():number{
+    return this.currentUser!.id;
+  }
+
+  get email():string {
+    return this.currentUser?.email;
   }
 
   get role():BtaRole {
