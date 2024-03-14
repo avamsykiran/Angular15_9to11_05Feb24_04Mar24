@@ -5,7 +5,10 @@ import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from './accounts.component';
 import { ListComponent } from './list/list.component';
 import { AccountFormComponent } from './account-form/account-form.component';
-
+import { EffectsModule } from '@ngrx/effects';
+import { AccountsEffects } from './store/effect/accounts.effects';
+import { StoreModule } from '@ngrx/store';
+import { accountsFeatureKey, accountsReducer} from './store/reducer/accounts.reducer';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,9 @@ import { AccountFormComponent } from './account-form/account-form.component';
   ],
   imports: [
     CommonModule,
-    AccountsRoutingModule
+    AccountsRoutingModule,
+    StoreModule.forFeature(accountsFeatureKey,accountsReducer),
+    EffectsModule.forFeature([AccountsEffects])
   ]
 })
 export class AccountsModule { }

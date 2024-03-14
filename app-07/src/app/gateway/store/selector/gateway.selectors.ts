@@ -8,3 +8,4 @@ export const selectRole = createSelector(selectGatwayState,state => state.curren
 export const selectIsLoggedIn = createSelector(selectGatwayState,state => state.currentUser?true:false);
 export const selectAccessToken = createSelector(selectGatwayState,state => state.accessToken);
 export const selectIsCallInProgress = createSelector(selectGatwayState,state => state.isCallInProgress);
+export const selectErrMsg = createSelector(selectGatwayState,state => state.errMsg);

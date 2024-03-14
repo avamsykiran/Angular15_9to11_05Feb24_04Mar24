@@ -7,6 +7,7 @@ export const GatewayActions = createActionGroup({
     makeLoginCall: props<{ email:string,password:string }>(),
     loginCallDone: props<{ accessToken:string,user:BtaUser }>(),
     makeRegisterCall: props<{ email:string,password:string }>(),
-    registerCallDone: props<{ accessToken:string,user:BtaUser }>()
+    registerCallDone: props<{ accessToken:string,user:BtaUser }>(),
+    callFailed: props<{ errMsg:string }>()
   }
 });

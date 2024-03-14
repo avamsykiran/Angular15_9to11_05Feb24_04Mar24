@@ -5,6 +5,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AppMatModule } from '../app-mat.module';
+import { EffectsModule } from '@ngrx/effects';
+import { GatewayEffects } from './store/effect/gateway.effects';
+import { StoreModule } from '@ngrx/store';
+import { gatewayFeatureKey,gatewayReducer } from './store/reducer/gateway.reducer';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,9 @@ import { AppMatModule } from '../app-mat.module';
   ],
   imports: [
     CommonModule,
-    AppMatModule
+    AppMatModule,
+    StoreModule.forFeature(gatewayFeatureKey, gatewayReducer),
+    EffectsModule.forFeature([GatewayEffects])
   ],
   exports:[
     LoginComponent,

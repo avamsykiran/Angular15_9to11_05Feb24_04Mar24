@@ -701,7 +701,11 @@ Angular 15
 
                 ng g selector domain-module-name/store/selector/SelectorName
 
-            8. Attach the reducer to the Store Module and import in domain-module
+            8. Add Effect
+
+                ng g effect domain-module-name/store/effect/EffectName
+
+            9. Attach the reducer to the Store Module and import in domain-module
 
                 StoreModule.forFeature(modelFeatureKeyName, reducerName)
             
