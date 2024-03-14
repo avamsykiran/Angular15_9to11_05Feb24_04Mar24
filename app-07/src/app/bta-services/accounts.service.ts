@@ -16,6 +16,10 @@ export class AccountsService {
     this.api=`${environment.apiRoot}/accounts`;
   }
 
+  getAll():Observable<Account[]>{
+    return this.http.get<Account[]>(this.api);
+  }
+
   getAccountByUserID(userId:number):Observable<Account>{
     return this.http.get<Account[]>(`${this.api}?userId=${userId}`).pipe( map( (accs:Account[]) => accs[0] ));
   }

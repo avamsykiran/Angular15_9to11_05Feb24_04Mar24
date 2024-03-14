@@ -8,8 +8,9 @@ import { TxnFooterComponent } from './txn-footer/txn-footer.component';
 import { TxnRowComponent } from './txn-row/txn-row.component';
 import { TxnFormRowComponent } from './txn-form-row/txn-form-row.component';
 import { EffectsModule } from '@ngrx/effects';
-import { TxnsEffects } from '../txns/store/effect/txns.effects';
-
+import { TxnsEffects } from './store/effect/txns.effects';
+import {statementFeatureKey,statementReducer } from './store/reducer/txns.reducer';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TxnsEffects } from '../txns/store/effect/txns.effects';
   imports: [
     CommonModule,
     StatementRoutingModule,
+    StoreModule.forFeature(statementFeatureKey,statementReducer),
     EffectsModule.forFeature([TxnsEffects])
   ]
 })
