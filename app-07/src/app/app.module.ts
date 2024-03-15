@@ -14,6 +14,7 @@ import { reducers, metaReducers } from './reducers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMatModule } from './app-mat.module';
 import { TokenInterceptor } from './bta-services/token.interceptor';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TokenInterceptor } from './bta-services/token.interceptor';
     BtaSharedModule,
     BtaServicesModule,
     GatewayModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(),
+    EffectsModule.forRoot(),
     BrowserAnimationsModule,
     AppMatModule,
     HttpClientModule,

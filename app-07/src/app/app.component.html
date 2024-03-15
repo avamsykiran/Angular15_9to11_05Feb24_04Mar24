@@ -1,13 +1,8 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <span>{{title}}</span>
-        <a mat-button routerLink="/login">
-            <mat-icon>account_box</mat-icon>
-            <span>Sign In</span>
-        </a>
-        <a mat-button routerLink="/register">
-            <mat-icon>account_circle</mat-icon>
-            <span>Sign Up</span>
+        <a mat-button [routerLink]="menu[0]" *ngFor="let menu of menus">
+            <span>{{menu[1]}}</span>
         </a>
     </mat-toolbar-row>
 </mat-toolbar>

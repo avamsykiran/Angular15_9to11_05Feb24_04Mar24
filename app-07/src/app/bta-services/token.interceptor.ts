@@ -5,24 +5,28 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthenticationService } from './authentication.service';
+import { Observable, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { GatewayState } from '../gateway/store/reducer/gateway.reducer';
+import { selectAccessToken } from '../gateway/store/selector/gateway.selectors';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private store:Store<GatewayState>) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return (
-      next.handle(
-        this.authService.isLoggedIn ?
-          request.clone({
-            setHeaders: {
-              'Authorization': `Bearer ${this.authService.token}`
-            }
-          }) :
-          request
+    return this.store.select(selectAccessToken).pipe(
+      switchMap(
+        token => next.handle(
+          token ?
+            request.clone({
+              setHeaders: {
+                'Authorization': `Bearer ${token}`
+              }
+            }) :
+            request
+        )
       )
     );
   }

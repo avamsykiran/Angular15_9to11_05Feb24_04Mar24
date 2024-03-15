@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { GatewayEffects } from './store/effect/gateway.effects';
 import { StoreModule } from '@ngrx/store';
 import { gatewayFeatureKey,gatewayReducer } from './store/reducer/gateway.reducer';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { gatewayFeatureKey,gatewayReducer } from './store/reducer/gateway.reduce
   imports: [
     CommonModule,
     AppMatModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(gatewayFeatureKey, gatewayReducer),
     EffectsModule.forFeature([GatewayEffects])
   ],

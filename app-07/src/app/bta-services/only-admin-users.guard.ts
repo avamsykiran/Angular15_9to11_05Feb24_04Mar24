@@ -1,10 +1,14 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
 import { BtaRole } from '../models/bta-role';
+import { Store } from '@ngrx/store';
+import { GatewayState } from '../gateway/store/reducer/gateway.reducer';
+import { selectRole } from '../gateway/store/selector/gateway.selectors';
+import { map } from 'rxjs';
 
 export const onlyAdminUsersGuard: CanActivateFn = (route, state) => {
-  let as:AuthenticationService = inject(AuthenticationService);
-  console.log("for only admins: "+as.isLoggedIn && as.role===BtaRole.ADMIN);
-  return as.isLoggedIn && as.role===BtaRole.ADMIN ? true : inject(Router).parseUrl("/noEntry");
+  let router = inject(Router);
+  return inject(Store<GatewayState>).select(selectRole).pipe(
+    map(role => role && role===BtaRole.ADMIN ? true : router.parseUrl("/noEntry") )
+  )
 };

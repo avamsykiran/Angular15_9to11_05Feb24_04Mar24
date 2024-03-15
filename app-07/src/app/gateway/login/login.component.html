@@ -1,22 +1,39 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Log In</mat-card-title>
-    </mat-card-header>
-    <form>
+
+<ng-container *ngIf="isLogged$ | async then signedIMsg; else signInForm">
+</ng-container>
+
+<ng-template #signedIMsg>
+    <mat-card>
         <mat-card-content>
-            <div>
-                <mat-form-field >
-                    <input matInput placeholder="Email Id" />
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field>
-                    <input matInput placeholder="Password" type="password" />
-                </mat-form-field>
-            </div>
+            <strong>You are already logged in!</strong>
         </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary">Log In</button>
-        </mat-card-actions>
-    </form>
-</mat-card>
+    </mat-card>
+</ng-template>
+
+<ng-template #signInForm>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Log In</mat-card-title>
+        </mat-card-header>
+        <form (ngSubmit)="logInFormSubmitted" [formGroup]="logInForm">
+            <mat-card-content>
+                <div *ngIf="msg">
+                <strong>{{msg}}</strong>
+                </div>
+                <div>
+                    <mat-form-field >
+                        <input matInput placeholder="Email Id" formControlName="email" />
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Password" type="password" formControlName="password" />
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [disabled]="logInForm.invalid">Log In</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</ng-template>
